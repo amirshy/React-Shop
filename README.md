@@ -1,3 +1,6 @@
+# 🛍️ Store Website
+
+
 A modern and fully responsive **E-commerce** web application built with **React**, **Tailwind CSS**, and **React Router**.  
 This project features **Dark/Light mode**, smooth navigation, and is designed with a mobile-first approach for seamless viewing on all devices.
 
@@ -20,16 +23,16 @@ This project features **Dark/Light mode**, smooth navigation, and is designed wi
 
 ```bash
 # Clone the repository
-git clone https://github.com/username/store-app.git
+git clone https://github.com/amirshy/React-Shop.git
 
 # Navigate into the project directory
-cd ُ
+cd React-Shop
 
 # Install dependencies
 npm install
 
 # Start the development server
-npm start
+npm run dev
 ```
 
 ---
