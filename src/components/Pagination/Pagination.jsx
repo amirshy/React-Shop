@@ -19,7 +19,7 @@ function Pagination({ prevPage, setPage, nextPage, page, lentghBtn }) {
                 <li
                     key={item + 1}
                     className={`text-3xl rounded-md w-[40px] h-[40px] flex items-center justify-center transition-all delay-100 duration-300 hover:bg-red-500 hover:!text-white ${
-                        page === item + 1 && "bg-red-500"
+                        page === item + 1 && "bg-red-500 !text-white"
                     }`}
                     onClick={() => setPage(item + 1)}
                 >
