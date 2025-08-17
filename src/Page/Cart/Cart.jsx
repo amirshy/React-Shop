@@ -3,8 +3,10 @@ import ItemCart from "../../components/ItemCart/ItemCart";
 import { useEffect, useState } from "react";
 import ItemCartContext from "../../ItemCartContext";
 import { useContext } from "react";
+import usePdfItemCart from "../../hook/usePdfItemCart";
 
 function Cart() {
+    const itemCartPdf = usePdfItemCart();
     const [itemCart, setItemCart] = useState([]);
     const [chaheCount, setChangeCont] = useState(false);
     const [totalPrice, setTotalPrice] = useState(0);
@@ -72,6 +74,15 @@ function Cart() {
                             No items found
                         </span>
                     </div>
+                )}
+
+                {totalPrice > 0 && (
+                    <button
+                        onClick={itemCartPdf}
+                        className="w-[100%] mt-2.5 rounded-md py-3 flex items-center justify-center hover:bg-red-600 bg-red-500 !text-white transition-all duration-300 delay-100"
+                    >
+                        Receive invoice
+                    </button>
                 )}
             </div>
         </>

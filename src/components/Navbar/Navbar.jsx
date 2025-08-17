@@ -22,6 +22,7 @@ let Navbar = () => {
     const logOutUser = () => {
         localStorage.removeItem("auth");
         hasItemCart.setHasAuth(false);
+        hasItemCart.setUserName("");
     };
 
     return (
@@ -57,9 +58,9 @@ let Navbar = () => {
                         <Link
                             onClick={logOutUser}
                             to="/"
-                            className="mr-1.5 bg-gray-100 dark:bg-gray-600 w-9 h-9 rounded-md flex items-center justify-center text-xl"
+                            className="mr-1.5 bg-gray-100 dark:bg-gray-600 px-2 text-sm h-9 rounded-md flex items-center justify-center "
                         >
-                            <RiLogoutBoxLine />
+                            {hasItemCart.userName}
                         </Link>
                     )}
 

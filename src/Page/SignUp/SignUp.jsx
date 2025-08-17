@@ -7,36 +7,33 @@ import { Link } from "react-router-dom";
 import { useContext } from "react";
 import ItemCartContext from "../../ItemCartContext.jsx";
 import { useNavigate } from "react-router-dom";
-const Login = () => {
+function SignUp() {
     const [showPasword, setShowPassword] = useState(false);
-    const [notFoundUser, setNotFoundUser] = useState(false);
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
     const [userName, setUserName] = useState("");
     const [password, setPassword] = useState("");
     const hasItemCart = useContext(ItemCartContext);
     let navigate = useNavigate();
-
     const AuthUser = () => {
-        let getSignUpUser = JSON.parse(localStorage.getItem("signUp"));
         if (userName && password) {
-            if (getSignUpUser === null) {
-                navigate("/signUp");
-            } else if (
-                getSignUpUser.userName === userName &&
-                getSignUpUser.password === password
-            ) {
-                let user = {
-                    userName,
-                    password,
-                };
+            let user = {
+                firstName,
+                lastName,
+                userName,
+                password,
+            };
+            let authUser = {
+                userName,
+                password,
+            };
 
-                localStorage.setItem("auth", JSON.stringify(user));
-                hasItemCart.setHasAuth(true);
-                hasItemCart.setUserName(userName);
-                setNotFoundUser(false);
-                navigate("/");
-            } else {
-                setNotFoundUser(true);
-            }
+            localStorage.setItem("auth", JSON.stringify(authUser));
+
+            localStorage.setItem("signUp", JSON.stringify(user));
+            hasItemCart.setHasAuth(true);
+            hasItemCart.setUserName(userName);
+            navigate("/");
         }
     };
 
@@ -44,11 +41,26 @@ const Login = () => {
         <div className="dark:bg-gray-800 bg-gray-200 my-16 p-9  border border-gray-500 w-[90%] sm:w-[70%] md:w-[50%] lg:w-[40%] rounded-md mx-auto ">
             <h1 className="text-center text-3xl pb-10">Login</h1>
 
-            {notFoundUser && (
-                <div className="w-full bg-red-500 p-2 rounded-md text-center">
-                    <p>User not found</p>
-                </div>
-            )}
+            <div className="flex items-center gap-2.5 border my-6 border-gray-400 py-1.5 px-3 rounded-md">
+                <input
+                    type="text"
+                    placeholder="FirstName"
+                    className="w-full h-[35px] outline-0"
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                />
+                <FaRegUser className=" text-2xl" />
+            </div>
+            <div className="flex items-center gap-2.5 border my-6 border-gray-400 py-1.5 px-3 rounded-md">
+                <input
+                    type="LastName"
+                    placeholder="UserName"
+                    className="w-full h-[35px] outline-0"
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                />
+                <FaRegUser className=" text-2xl" />
+            </div>
             <div className="flex items-center gap-2.5 border my-6 border-gray-400 py-1.5 px-3 rounded-md">
                 <input
                     type="text"
@@ -82,25 +94,23 @@ const Login = () => {
             </div>
 
             <div className="flex items-center gap-3.5">
-                <span className="text-gray-500">
-                    You don't have an account?
-                </span>
+                <span className="text-gray-500">Do you have an account?</span>
                 <Link
-                    to="/signUp"
+                    to="/login"
                     className="transition-all duration-300 delay-100 hover:text-red-500"
                 >
-                    Sign up
+                    Login
                 </Link>
             </div>
 
             <button
                 onClick={AuthUser}
-                className="w-[100%] mt-32 rounded-md py-3 flex items-center justify-center hover:bg-red-600 bg-red-500 !text-white transition-all duration-300 delay-100"
+                className="w-[100%] mt-11 rounded-md py-3 flex items-center justify-center hover:bg-red-600 bg-red-500 !text-white transition-all duration-300 delay-100"
             >
                 Login
             </button>
         </div>
     );
-};
+}
 
-export default Login;
+export default SignUp;

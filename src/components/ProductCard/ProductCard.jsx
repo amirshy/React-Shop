@@ -1,39 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import ItemCartContext from "../../ItemCartContext";
+import useStorageCart from "../../hook/useStorageCart";
 import { useContext } from "react";
+import ItemCartContext from "../../ItemCartContext.jsx";
 
 function ProductCard(props) {
-    let hasItemCart = useContext(ItemCartContext);
-    const addToCart = () => {
-        let itemCart = localStorage.getItem("cart");
-        let parseItem = JSON.parse(itemCart);
-
-        let hasItem =
-            parseItem && parseItem.find((item) => item.id === props.id);
-
-        if (itemCart === null) {
-            hasItemCart.setHasItem(true);
-            let item = { ...props, countItemCart: 1 };
-            let ArrayItem = [item];
-            localStorage.setItem("cart", JSON.stringify(ArrayItem));
-        } else if (!hasItem) {
-            hasItemCart.setHasItem(true);
-            let item = { ...props, countItemCart: 1 };
-            let ArrayItem = [...parseItem, item];
-            localStorage.setItem("cart", JSON.stringify(ArrayItem));
-        } else {
-            hasItemCart.setHasItem(true);
-            let updatedItems = parseItem.map((item) => {
-                if (item.id === props.id && item.countItemCart < props.count) {
-                    return { ...item, countItemCart: item.countItemCart + 1 };
-                }
-                return item;
-            });
-
-            localStorage.setItem("cart", JSON.stringify(updatedItems));
-        }
-    };
+    let addToCart = useStorageCart(props);
+    const authUser = useContext(ItemCartContext);
 
     return (
         <div className="p-7 border-2 border-gray-200 shadow-md dark:border-gray-800 rounded-md">
@@ -64,12 +37,22 @@ function ProductCard(props) {
                     </span>
                     <span className="text-md">$ {props.price}</span>
                 </div>
-                <button
-                    onClick={addToCart}
-                    className="bg-red-500 py-2.5 px-8 !text-white transition-all delay-150 duration-300 hover:bg-red-600 rounded-md "
-                >
-                    Add To Cart
-                </button>
+                {authUser.hastAuth ? (
+                    <button
+                        onClick={addToCart}
+                        className="bg-red-500 py-2.5 px-8 !text-white transition-all delay-150 duration-300 hover:bg-red-600 rounded-md "
+                    >
+                        Add To Cart
+                    </button>
+                ) : (
+                    <Link
+                        to="/login"
+                        onClick={addToCart}
+                        className="bg-red-500 py-2.5 px-8 !text-white transition-all delay-150 duration-300 hover:bg-red-600 rounded-md "
+                    >
+                        Add To Cart
+                    </Link>
+                )}
             </div>
         </div>
     );

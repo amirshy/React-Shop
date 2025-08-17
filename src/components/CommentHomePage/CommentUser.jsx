@@ -1,14 +1,10 @@
 import React from "react";
-
 function CommentUser() {
     return (
-        <div
-            className="max-w-3xl mx-auto mt-20 aos-init w-[90%] aos-animate"
-            data-aos="zoom-y-out"
-        >
+        <div className="max-w-3xl mx-auto mt-20 ">
             <div className="relative flex items-start border-2 border-red-500 rounded bg-white dark:bg-gray-700">
                 <div className="text-center py-8 flex items-center justify-center flex-col md:px-8 pt-20 lg:pt-20 md:pt-20 sm:pt-20 lg:py-8 lg:px-12 mx-4 md:mx-0">
-                    <div className="absolute top-6 -mt-8  transform -translate-1/2">
+                    <div className="absolute top-5 -mt-8  transform -translate-1/2">
                         <svg
                             stroke="currentColor"
                             fill="currentColor"
@@ -23,7 +19,7 @@ function CommentUser() {
                             <path d="M16.94,15.11c0,3.07-1.53,4.3-4.3,4.34L12.35,18c1.6-.16,2.39-1,2.28-2.3H13.18V12h3.76Zm5.9,0c0,3.07-1.53,4.3-4.3,4.34L18.24,18c1.6-.16,2.39-1,2.28-2.3H19.08V12h3.76Z"></path>
                         </svg>
                         <img
-                            className="relative rounded-full"
+                            className="relative rounded-full -mt-4"
                             src="/Logo-Asli (2).png"
                             width="96"
                             height="96"

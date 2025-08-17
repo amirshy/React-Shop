@@ -4,6 +4,7 @@ import Products from "./Page/Products/Products";
 import Login from "./Page/Login/Login";
 import Product from "./Page/Product/Product";
 import Cart from "./Page/Cart/Cart";
+import SignUp from "./Page/SignUp/SignUp";
 
 const route = [
     { path: "/", element: <Index /> },
@@ -12,5 +13,6 @@ const route = [
     { path: "/product/:id", element: <Product /> },
     { path: "/login", element: <Login /> },
     { path: "/cart", element: <Cart /> },
+    { path: "/signUp", element: <SignUp /> },
 ];
 export default route;

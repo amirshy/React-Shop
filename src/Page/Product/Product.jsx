@@ -4,44 +4,18 @@ import { useNavigate } from "react-router";
 import { IoIosArrowBack } from "react-icons/io";
 import { useParams } from "react-router";
 import { ProductData } from "../../Data";
-import ItemCartContext from "../../ItemCartContext";
+import useStorageCart from "../../hook/useStorageCart";
 import { useContext } from "react";
+import ItemCartContext from "../../ItemCartContext.jsx";
+
 function Product() {
     const params = useParams();
     const [iamgeAsli, setImageAsli] = useState("1");
     const [data, setData] = useState({});
     const navigate = useNavigate();
+    const authUser = useContext(ItemCartContext);
 
-    let hasItemCart = useContext(ItemCartContext);
-    const addToCart = (data) => {
-        let itemCart = localStorage.getItem("cart");
-        let parseItem = JSON.parse(itemCart);
-
-        let hasItem =
-            parseItem && parseItem.find((item) => item.id === data.id);
-
-        if (itemCart === null) {
-            hasItemCart.setHasItem(true);
-            let item = { ...data, countItemCart: 1 };
-            let ArrayItem = [item];
-            localStorage.setItem("cart", JSON.stringify(ArrayItem));
-        } else if (!hasItem) {
-            hasItemCart.setHasItem(true);
-            let item = { ...data, countItemCart: 1 };
-            let ArrayItem = [...parseItem, item];
-            localStorage.setItem("cart", JSON.stringify(ArrayItem));
-        } else {
-            hasItemCart.setHasItem(true);
-            let updatedItems = parseItem.map((item) => {
-                if (item.id === data.id && item.countItemCart < data.count) {
-                    return { ...item, countItemCart: item.countItemCart + 1 };
-                }
-                return item;
-            });
-
-            localStorage.setItem("cart", JSON.stringify(updatedItems));
-        }
-    };
+    let addToCart = useStorageCart(data);
 
     useEffect(() => {
         const dataProduct = ProductData.find(
@@ -106,12 +80,22 @@ function Product() {
                                     $ {data.price}
                                 </span>
                             </div>
-                            <button
-                                onClick={() => addToCart(data)}
-                                className="bg-red-500 py-2.5 px-8 !text-white transition-all delay-100 duration-300 hover:bg-red-600 rounded-md "
-                            >
-                                Add To Cart
-                            </button>
+                            {authUser.hastAuth ? (
+                                <button
+                                    onClick={addToCart}
+                                    className="bg-red-500 py-2.5 px-8 !text-white transition-all delay-150 duration-300 hover:bg-red-600 rounded-md "
+                                >
+                                    Add To Cart
+                                </button>
+                            ) : (
+                                <Link
+                                    to="/login"
+                                    onClick={addToCart}
+                                    className="bg-red-500 py-2.5 px-8 !text-white transition-all delay-150 duration-300 hover:bg-red-600 rounded-md "
+                                >
+                                    Add To Cart
+                                </Link>
+                            )}
                         </div>
                     </div>
                 </div>
