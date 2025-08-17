@@ -14,6 +14,7 @@ function App() {
     let [hasItem, setHasItem] = useState(false);
     let [hastAuth, setHasAuth] = useState(false);
     let [userName, setUserName] = useState("");
+    let [discountAmount, setDiscountAmount] = useState(0);
     useEffect(() => {
         AOS.init({
             duration: 1000, // Animation duration in milliseconds
@@ -29,6 +30,8 @@ function App() {
                 setHasAuth,
                 userName,
                 setUserName,
+                discountAmount,
+                setDiscountAmount,
             }}
         >
             <div className="min-h-screen scroll-smooth bg-white dark:bg-gray-900 text-black dark:text-white ">

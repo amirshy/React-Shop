@@ -1,7 +1,11 @@
 import React from "react";
 import { jsPDF } from "jspdf";
 import autoTable from "jspdf-autotable";
+import ItemCartContext from "../ItemCartContext";
+import { useContext } from "react";
+
 const usePdfItemCart = () => {
+    let hasItemCart = useContext(ItemCartContext);
     const handleDownload = () => {
         const cart = JSON.parse(localStorage.getItem("cart")) || [];
 
@@ -12,7 +16,7 @@ const usePdfItemCart = () => {
 
         const doc = new jsPDF();
 
-        // اضافه کردن لوگو
+        //لوگو
         doc.addImage("/public/Logo-Asli (2).png", "PNG", 15, 10, 20, 20);
 
         // عنوان فروشگاه
@@ -22,11 +26,12 @@ const usePdfItemCart = () => {
         // آماده کردن دیتا برای جدول
         let totalPrice = 0;
         let totalQuantity = 0;
-
+        let discountAmountNum = hasItemCart.discountAmount;
         const rows = cart.map((item, index) => {
             const itemTotal = item.price * item.countItemCart;
             totalPrice += itemTotal;
             totalQuantity += item.countItemCart;
+
             return [
                 index + 1,
                 item.title,
@@ -46,7 +51,18 @@ const usePdfItemCart = () => {
         // جمع کل
         autoTable(doc, {
             startY: doc.lastAutoTable.finalY + 10,
-            body: [["", `Count :${totalQuantity}`, "", `Total:$${totalPrice}`]],
+            body: [
+                [
+                    "",
+                    `Count :${totalQuantity}`,
+                    `discoundAmount : ${
+                        discountAmountNum ? discountAmountNum : 0
+                    } %`,
+                    `Total:$${
+                        totalPrice - totalPrice * (discountAmountNum / 100)
+                    }`,
+                ],
+            ],
             styles: { fontStyle: "bold" },
         });
 
