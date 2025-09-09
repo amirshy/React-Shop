@@ -1,6 +1,5 @@
 # 🛍️ Store Website
 
-
 A modern and fully responsive **E-commerce** web application built with **React**, **Tailwind CSS**, and **React Router**.  
 This project features **Dark/Light mode**, smooth navigation, and is designed with a mobile-first approach for seamless viewing on all devices.
 
@@ -44,6 +43,12 @@ npm run dev
 -   **Tailwind CSS** — Utility-first styling
 -   **React Icons** — Icon set
 -   **Local Storage API** — Client-side data storage
+
+---
+
+## 💻 Demo
+
+<a href="https://reactcart.liara.run/">React Shop</a>
 
 ---
 
